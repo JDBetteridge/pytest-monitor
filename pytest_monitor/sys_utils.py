@@ -32,6 +32,10 @@ def collect_ci_info():
     if "CI_JOB_NAME" in os.environ and "CI_PIPELINE_ID" in os.environ:
         d = dict(pipeline_branch=os.environ["CI_JOB_NAME"], pipeline_build_no=os.environ["CI_PIPELINE_ID"],
                  __ci__='gitlabci')
+    # Test for Github Actions
+    if "GITHUB_REF_NAME" in os.environ and "GITHUB_RUN_ATTEMPT" in os.environ:
+        d = dict(pipeline_branch=os.environ["GITHUB_REF_NAME"], pipeline_build_no=os.environ["GITHUB_RUN_ATTEMPT"],
+                 __ci__='githubactionsci')
     return d
 
 
